@@ -8,12 +8,14 @@ app.use(cors());
 app.use(express.json());
 
 const admin = require('firebase-admin');
-const serviceAccount = require('./serviceAccountKey.json');
-const admin = require("firebase-admin");
+const fs = require('fs');
+const path = require('path');
 
+const serviceAccountPath = path.join(__dirname, 'serviceAccountKey.json');
+const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceAccount)
 });
 
 const db = admin.firestore();
