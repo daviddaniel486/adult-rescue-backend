@@ -105,6 +105,17 @@ app.post('/volunteer', async (req, res) => {
     res.status(500).json({ error: 'Server error. Please try again later.' });
   }
 });
+// Health‑check: list top‑level collections  
+app.get('/_health/firestore', async (req, res) => {
+  try {
+    const collections = await admin.firestore().listCollections();
+    const names      = collections.map(col => col.id);
+    res.json({ collections: names });
+  } catch (err) {
+    console.error('Firestore health‑check error:', err);
+    res.status(500).json({ error: 'Cannot list collections', details: err.message });
+  }
+});
 
 
 
