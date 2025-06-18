@@ -1,0 +1,9 @@
+# Don't track secrets
+.env
+serviceAccountKey.json
+
+# Node modules
+node_modules/
+.env
+serviceAccountKey.json
+secret_key_stripe
